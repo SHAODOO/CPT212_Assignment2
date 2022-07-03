@@ -25,8 +25,6 @@
 #include <ctime>
 #include <set>
 
-
-
 using namespace std;
 
 class Color{ 
@@ -592,7 +590,8 @@ int main()
 					cycle(Graph, vNum);
 					break;
 
-			case 3: printSP();
+			case 3: system("Color 0B"); 
+					printSP();
 					shortestPath(Graph, vNum);
 					break;
 
