@@ -81,8 +81,6 @@ class WeightedGraph
 			edges.resize(rows, vector<int>(columns, 0));
 		}
 		
-		
-		// added by LPS
 		// to clear all the cities and edges of the graph
 		void initialization(int size)
 		{
@@ -197,14 +195,11 @@ class WeightedGraph
 			return NULL;
 		}
 
-		// added by LPS
 		city* getCity(int index)
 		{
 		    return cities[index];
 		}
 		
-		
-		// edited by LPS for Function 1 
 		bool DFS(city* aCity)
 		{
 			int ix,ix2;
@@ -234,8 +229,7 @@ class WeightedGraph
 			return true;
 		}
 		
-
-		//Function 2, Print Cycle detected
+		// Function 2: Print Cycle detected
 		void printCycles(int& counting, int sequenceArr[])
         {
             cout << "\tThe detected cycle : " << getCity(sequenceArr[0])->title << " -> ";
@@ -244,7 +238,7 @@ class WeightedGraph
             cout << getCity(sequenceArr[0])->title << endl << endl;
         }
 
-        //Function 2
+        // Function 2: Print Cycle detected
 		bool isGraphCyclic(int& counting, int sequenceArr[])
 		{
 		    int color[nmbCities]={0}; //color to mark the condition of cities, not visited/partially visited/completely visited
@@ -268,7 +262,7 @@ class WeightedGraph
             return false; //No cycle in the graph
 		}
 
-		//Function 2
+		// Function 2: Print Cycle detected
 		bool DFS_for_cycle(city* aCity,int previous, int color[],int previousCollect[],int& counting, int sequenceArr[])
 		{
 			int ix,ix2; //ix and ix2 hold index of cities
@@ -359,7 +353,7 @@ class WeightedGraph
 			
 		}
 
-		//Function 3: Shortest Path
+		// Function 3: Shortest Path
 		void printPath(int parent[], int src, int dest){
 			int current = dest;
 			vector <int> print;
@@ -485,7 +479,6 @@ class WeightedGraph
 			}
 		}
 
-	    // added by LPS
 	    void displayGraph()
 	    {
 	        cout << left;
@@ -533,17 +526,22 @@ class WeightedGraph
 };
 
 
-void defaultCity(WeightedGraph&, int);							// LPS: To set the cities of the graph to default
-void defaultEdge(WeightedGraph&); 								// LPS: To set the edges of the graph to default
-void initializeGraph (WeightedGraph&, int); 					// LPS: To initialize the graph into the default graph
-void addRandomEdge (WeightedGraph&, int); 						// LPS: To generate a random edge between random cities of the graph
-void transposeGraph (WeightedGraph&, WeightedGraph&, int); 		// LPS: To transpose the graph
+void defaultCity(WeightedGraph&, int);							// To set the cities of the graph to default
+void defaultEdge(WeightedGraph&); 								// To set the edges of the graph to default
+void initializeGraph (WeightedGraph&, int); 					// To initialize the graph into the default graph
+void addRandomEdge (WeightedGraph&, int); 						// To generate a random edge between random cities of the graph
+void transposeGraph (WeightedGraph&, WeightedGraph&, int); 		// To transpose the graph
 void strongConnectivity(WeightedGraph&, int); 					// Strong Connectivity
 void cycle(WeightedGraph&, int); 								// Cycle Detection
 void shortestPath(WeightedGraph&, int); 						// Shortest Path
 void removeEdge(WeightedGraph& , int); 							// Remove edge from the graph
-void printTY(); 												// LSD: To print Thank you banner
-void printSP();													// LSD: To print Shortest Path banner
+void printTY(); 												// To print Thank you banner
+void printSP();													// To print Shortest Path banner
+void printCD();													// To print Cycle Detection banner
+void printDG();													// To print Default Graph banner
+void printMST();												// To print Minimal Spanning Tree
+void printRE();													// To print Remove Edge
+void printSC();													// To print Strong Connectivity
 
 int main()
 {
@@ -556,7 +554,7 @@ int main()
 	// Menu
 	do{
 	    system ("cls");
-	    system ("Color 07");
+	    system ("Color 0E");
 	    cout << "      ::::::::  :::::::::      :::     :::::::::  :::    :::" << endl
 	    	 << "    :+:    :+: :+:    :+:   :+: :+:   :+:    :+: :+:    :+:" << endl
 	    	 << "   +:+        +:+    +:+  +:+   +:+  +:+    +:+ +:+    +:+" << endl
@@ -573,7 +571,7 @@ int main()
 			 << "	5. Minimum Spanning Tree" << endl
 			 << "	6. Remove edge" << endl
 			 << "	7. Exit" << endl << endl
-			 << " Option : " ;
+			 << "Option : " ;
 		cin >> opt;
 
 		if(opt<1 || opt>7 || cin.fail()){
@@ -586,11 +584,13 @@ int main()
 
 		system ("cls");
 		switch (opt){
-			case 1: cout << "------------ STRONG CONNECTIVITY ----------------\n\n" ;
+			case 1: system("Color 0D");
+					printSC();
 					strongConnectivity(Graph, vNum);
 					break;
 
-			case 2: cout << "---------------- CYCLE DETECTION ----------------\n\n";
+			case 2: system("Color 02");
+					printCD();
 					cycle(Graph, vNum);
 					break;
 
@@ -599,21 +599,25 @@ int main()
 					shortestPath(Graph, vNum);
 					break;
 
-			case 4: cout << "----------------- DEFAULT GRAPH -----------------\n\n";
+			case 4: system("Color 0C");
+					printDG();
 					initializeGraph (Graph, vNum);
 					Graph.displayGraph();
 					cout << "\n\n ";
 					system ("pause");
 					break;
 			
-			case 5: cout << "----------------- MINIMUM SPANNING TREE -----------------\n\n";
+			case 5: system("Color 07");
+					printMST();
+					system ("pause");
 					break;
 									
-			case 6: cout << "----------------- REMOVE EDGE -----------------\n\n";
+			case 6: system("Color 03");
+					printRE();
 					removeEdge(Graph, vNum);
 					break;
 
-			case 7: system ("Color 0D");
+			case 7: system ("Color 01");
 					printTY();
 					return 0;
 		}
@@ -685,7 +689,6 @@ void addRandomEdge(WeightedGraph& g, int N)
 
 	} while (added==false);
 }
-
 
 // To transpose the graph (reverse the edges of the graph)
 void transposeGraph (WeightedGraph& graph, WeightedGraph& tgraph, int N)
@@ -800,7 +803,6 @@ void strongConnectivity(WeightedGraph& g, int N)
 	cout << "\n\n ";
 	system ("pause");
 }
-
 
 // Function 2: Cycle Detection
 void cycle(WeightedGraph& graph, int numOfCities)
@@ -920,13 +922,72 @@ void printSP(){
 	     << "..######..##.....##..#######..##.....##....##....########..######.....##.......##........##.....##....##....##.....##" << endl;
 }
 
+// To print Cycle Detection banner
+void printCD(){
+	cout << ":'######::'##:::'##::'######::'##:::::::'########::::'########::'########:'########:'########::'######::'########:'####::'#######::'##::: ##:" << endl
+		 << "'##... ##:. ##:'##::'##... ##: ##::::::: ##.....::::: ##.... ##: ##.....::... ##..:: ##.....::'##... ##:... ##..::. ##::'##.... ##: ###:: ##:" << endl
+		 << " ##:::..:::. ####::: ##:::..:: ##::::::: ##:::::::::: ##:::: ##: ##:::::::::: ##:::: ##::::::: ##:::..::::: ##::::: ##:: ##:::: ##: ####: ##:" << endl
+		 << " ##:::::::::. ##:::: ##::::::: ##::::::: ######:::::: ##:::: ##: ######:::::: ##:::: ######::: ##:::::::::: ##::::: ##:: ##:::: ##: ## ## ##:" << endl
+		 << " ##:::::::::: ##:::: ##::::::: ##::::::: ##...::::::: ##:::: ##: ##...::::::: ##:::: ##...:::: ##:::::::::: ##::::: ##:: ##:::: ##: ##. ####:" << endl
+		 << " ##::: ##:::: ##:::: ##::: ##: ##::::::: ##:::::::::: ##:::: ##: ##:::::::::: ##:::: ##::::::: ##::: ##:::: ##::::: ##:: ##:::: ##: ##:. ###:" << endl
+		 << ". ######::::: ##::::. ######:: ########: ########:::: ########:: ########:::: ##:::: ########:. ######::::: ##::::'####:. #######:: ##::. ##:" << endl
+		 << ":......::::::..::::::......:::........::........:::::........:::........:::::..:::::........:::......::::::..:::::....:::.......:::..::::..::" << endl;
+}
+
+// To print Strongly Connectivity banner
+void printSC(){
+	cout << ":'######::'########:'########:::'#######::'##::: ##::'######:::::::'######:::'#######::'##::: ##:'##::: ##:'########::'######::'########:'####:'##::::'##:'####:'########:'##:::'##:" << endl
+		 << "'##... ##:... ##..:: ##.... ##:'##.... ##: ###:: ##:'##... ##:::::'##... ##:'##.... ##: ###:: ##: ###:: ##: ##.....::'##... ##:... ##..::. ##:: ##:::: ##:. ##::... ##..::. ##:'##::" << endl
+		 << " ##:::..::::: ##:::: ##:::: ##: ##:::: ##: ####: ##: ##:::..:::::: ##:::..:: ##:::: ##: ####: ##: ####: ##: ##::::::: ##:::..::::: ##::::: ##:: ##:::: ##:: ##::::: ##:::::. ####:::" << endl
+		 << ". ######::::: ##:::: ########:: ##:::: ##: ## ## ##: ##::'####:::: ##::::::: ##:::: ##: ## ## ##: ## ## ##: ######::: ##:::::::::: ##::::: ##:: ##:::: ##:: ##::::: ##::::::. ##::::" << endl
+		 << ":..... ##:::: ##:::: ##.. ##::: ##:::: ##: ##. ####: ##::: ##::::: ##::::::: ##:::: ##: ##. ####: ##. ####: ##...:::: ##:::::::::: ##::::: ##::. ##:: ##::: ##::::: ##::::::: ##::::" << endl
+		 << "'##::: ##:::: ##:::: ##::. ##:: ##:::: ##: ##:. ###: ##::: ##::::: ##::: ##: ##:::: ##: ##:. ###: ##:. ###: ##::::::: ##::: ##:::: ##::::: ##:::. ## ##:::: ##::::: ##::::::: ##::::" << endl
+		 << ". ######::::: ##:::: ##:::. ##:. #######:: ##::. ##:. ######::::::. ######::. #######:: ##::. ##: ##::. ##: ########:. ######::::: ##::::'####:::. ###::::'####:::: ##::::::: ##::::" << endl
+		 << ":......::::::..:::::..:::::..:::.......:::..::::..:::......::::::::......::::.......:::..::::..::..::::..::........:::......::::::..:::::....:::::...:::::....:::::..::::::::..:::::" << endl;
+}
+
+// To print Default Graph banner
+void printDG(){
+	cout << "'########::'########:'########::::'###::::'##::::'##:'##:::::::'########:::::'######:::'########:::::'###::::'########::'##::::'##:" << endl
+		 << " ##.... ##: ##.....:: ##.....::::'## ##::: ##:::: ##: ##:::::::... ##..:::::'##... ##:: ##.... ##:::'## ##::: ##.... ##: ##:::: ##:" << endl
+		 << " ##:::: ##: ##::::::: ##::::::::'##:. ##:: ##:::: ##: ##:::::::::: ##::::::: ##:::..::: ##:::: ##::'##:. ##:: ##:::: ##: ##:::: ##:" << endl
+		 << " ##:::: ##: ######::: ######:::'##:::. ##: ##:::: ##: ##:::::::::: ##::::::: ##::'####: ########::'##:::. ##: ########:: #########:" << endl
+		 << " ##:::: ##: ##...:::: ##...:::: #########: ##:::: ##: ##:::::::::: ##::::::: ##::: ##:: ##.. ##::: #########: ##.....::: ##.... ##:" << endl
+		 << " ##:::: ##: ##::::::: ##::::::: ##.... ##: ##:::: ##: ##:::::::::: ##::::::: ##::: ##:: ##::. ##:: ##.... ##: ##:::::::: ##:::: ##:" << endl
+		 << " ########:: ########: ##::::::: ##:::: ##:. #######:: ########:::: ##:::::::. ######::: ##:::. ##: ##:::: ##: ##:::::::: ##:::: ##:" << endl
+		 << "........:::........::..::::::::..:::::..:::.......:::........:::::..:::::::::......::::..:::::..::..:::::..::..:::::::::..:::::..::" << endl;
+}
+
+// To print Minimal Spanning Tree banner
+void printMST(){
+	cout << "'##::::'##:'####:'##::: ##:'####:'##::::'##:'##::::'##:'##::::'##:::::'######::'########:::::'###::::'##::: ##:'##::: ##:'####:'##::: ##::'######::::::'########:'########::'########:'########:" << endl
+		 << " ###::'###:. ##:: ###:: ##:. ##:: ###::'###: ##:::: ##: ###::'###::::'##... ##: ##.... ##:::'## ##::: ###:: ##: ###:: ##:. ##:: ###:: ##:'##... ##:::::... ##..:: ##.... ##: ##.....:: ##.....::" << endl
+		 << " ####'####:: ##:: ####: ##:: ##:: ####'####: ##:::: ##: ####'####:::: ##:::..:: ##:::: ##::'##:. ##:: ####: ##: ####: ##:: ##:: ####: ##: ##:::..::::::::: ##:::: ##:::: ##: ##::::::: ##:::::::" << endl
+		 << " ## ### ##:: ##:: ## ## ##:: ##:: ## ### ##: ##:::: ##: ## ### ##::::. ######:: ########::'##:::. ##: ## ## ##: ## ## ##:: ##:: ## ## ##: ##::'####::::::: ##:::: ########:: ######::: ######:::" << endl
+		 << " ##. #: ##:: ##:: ##. ####:: ##:: ##. #: ##: ##:::: ##: ##. #: ##:::::..... ##: ##.....::: #########: ##. ####: ##. ####:: ##:: ##. ####: ##::: ##:::::::: ##:::: ##.. ##::: ##...:::: ##...::::" << endl
+		 << " ##:.:: ##:: ##:: ##:. ###:: ##:: ##:.:: ##: ##:::: ##: ##:.:: ##::::'##::: ##: ##:::::::: ##.... ##: ##:. ###: ##:. ###:: ##:: ##:. ###: ##::: ##:::::::: ##:::: ##::. ##:: ##::::::: ##:::::::" << endl
+		 << " ##:::: ##:'####: ##::. ##:'####: ##:::: ##:. #######:: ##:::: ##::::. ######:: ##:::::::: ##:::: ##: ##::. ##: ##::. ##:'####: ##::. ##:. ######::::::::: ##:::: ##:::. ##: ########: ########:" << endl
+		 << "..:::::..::....::..::::..::....::..:::::..:::.......:::..:::::..::::::......:::..:::::::::..:::::..::..::::..::..::::..::....::..::::..:::......::::::::::..:::::..:::::..::........::........::" << endl;
+}
+
+// To print Remove Edge banner
+void printRE(){
+	cout << "'########::'########:'##::::'##::'#######::'##::::'##:'########::::'########:'########:::'######:::'########:" << endl
+		 << " ##.... ##: ##.....:: ###::'###:'##.... ##: ##:::: ##: ##.....::::: ##.....:: ##.... ##:'##... ##:: ##.....::" << endl
+		 << " ##:::: ##: ##::::::: ####'####: ##:::: ##: ##:::: ##: ##:::::::::: ##::::::: ##:::: ##: ##:::..::: ##:::::::" << endl
+		 << " ########:: ######::: ## ### ##: ##:::: ##: ##:::: ##: ######:::::: ######::: ##:::: ##: ##::'####: ######:::" << endl
+		 << " ##.. ##::: ##...:::: ##. #: ##: ##:::: ##:. ##:: ##:: ##...::::::: ##...:::: ##:::: ##: ##::: ##:: ##...::::" << endl
+		 << " ##::. ##:: ##::::::: ##:.:: ##: ##:::: ##::. ## ##::: ##:::::::::: ##::::::: ##:::: ##: ##::: ##:: ##:::::::" << endl
+		 << " ##:::. ##: ########: ##:::: ##:. #######::::. ###:::: ########:::: ########: ########::. ######::: ########:" << endl
+		 << "..:::::..::........::..:::::..:::.......::::::...:::::........:::::........::........::::......::::........::" << endl; 
+}
+
 // To remove edge from the graph
 void removeEdge(WeightedGraph& sp, int verNum)
 {
 	int source, destination;
 	bool edgeAvailable;
 
-	cout << "The graph :\n\n";
     sp.displayGraph();
 
 	do {
