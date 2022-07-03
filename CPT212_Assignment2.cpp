@@ -446,9 +446,14 @@ class WeightedGraph
 					}
 				}
 			}
+			Sleep(300);
 		    cout << "\n\nShortest Path: ";
+		    Sleep(300);
 		    printPath(parent, src, dest);
-			cout << "\nDistance: " << D[dest] << endl << endl;
+		    Sleep(300);
+			cout << "\nDistance: ";
+			Sleep(300);
+			cout << D[dest] << endl << endl;
 		}
 
 		void BFS(city* aCity)
@@ -536,7 +541,7 @@ void transposeGraph (WeightedGraph&, WeightedGraph&, int); 		// LPS: To transpos
 void strongConnectivity(WeightedGraph&, int); 					// Strong Connectivity
 void cycle(WeightedGraph&, int); 								// Cycle Detection
 void shortestPath(WeightedGraph&, int); 						// Shortest Path
-void removeEdge(WeightedGraph& , int&); 						// Remove edge from the graph
+void removeEdge(WeightedGraph& , int); 						// Remove edge from the graph
 void printTY(); 												// LSD: To print Thank you banner
 void printSP();													// LSD: To print Shortest Path banner
 
@@ -865,7 +870,11 @@ void shortestPath(WeightedGraph& graph, int verNum) {
 	pathAvailable = false;
 
 	system("cls");
-	cout << "Checking for available path...";
+	string loading = "Checking for available path.........";
+	for (int i = 0; i < loading.size(); i++){
+		cout << loading[i];
+		Sleep(100);
+	}
 	pathAvailable = graph.checkPath(source - 1, destination - 1);
 
 	if (pathAvailable == false) {
@@ -876,10 +885,13 @@ void shortestPath(WeightedGraph& graph, int verNum) {
 		}
 	}
 
+	Sleep(300);
 	cout << "\n\nPath to destination found. Latest graph: \n";
+	Sleep(300);
 	graph.displayGraph();
 
 	graph.findPath(source - 1, destination - 1);
+	Sleep(500);
 
 	system("pause");
 }
@@ -908,7 +920,7 @@ void printSP(){
 }
 
 // To remove edge from the graph
-void removeEdge(WeightedGraph& sp, int& verNum)
+void removeEdge(WeightedGraph& sp, int verNum)
 {
 	int source, destination;
 	bool edgeAvailable;
