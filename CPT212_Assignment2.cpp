@@ -1,18 +1,17 @@
-//============================================================================
+//======================================================================================================
 // CPT212 Assignment 2
-// Group 10
 // Author for the code of class City and class Graph
 // Name       	: AdjacencyMatrixGraphImp.cpp
 // Author      	: Amritpal Singh
 // Copyright   	: arrayed.net
 // Description 	: Array based Adjacency Matrix Graph Implementation
 // Cities	  	: Manila, Philippines; Sydney, Australia; Chongqing, China; Rome, Italy; Taipei, Taiwan
-// Distance		: MS: 6255.48; MC: 2236.82; MR: 10402.84; MT: 1171.24;
-//				: SM: 6267.25; SC: 8469.55; SR: 16321.11; ST: 7262.45;
-//				: CM: 2225.32; CS: 8469.55; CR: 8178.28; CT: 1553.07;
-//				: RM: 10391.68; RS: 16321.11; RC: 8178.28; RT: 9605.94
-//				: TM: 1160.84; TS: 7262.45; TC: 1553.07; TR: 9605.94 
-//============================================================================
+// Distance		: MS: 6255		MC: 2237	MR: 10403	MT: 1171
+//				: SM: 6255		SC: 8470	SR: 16321	ST: 7262
+//				: CM: 2237		CS: 8470	CR: 8178	CT: 1553
+//				: RM: 10403 	RS: 16321	RC: 8178	RT: 9606
+//				: TM: 1171		TS: 7262	TC: 1553	TR: 9606 
+//=======================================================================================================
 
 #include <iostream>
 #include <iomanip>
@@ -518,7 +517,7 @@ class WeightedGraph
 				return false;
 		}
 		
-		
+		//Destructor
 		~WeightedGraph()
 		{
 			for (int i=0;i<nmbCities;i++)
@@ -529,17 +528,17 @@ class WeightedGraph
 };
 
 
-void defaultCity(WeightedGraph&, int); // LPS: To set the cities of the graph to default
-void defaultEdge(WeightedGraph&); // LPS: To set the edges of the graph to default
-void initializeGraph (WeightedGraph&, int); // LPS: To initialize the graph into the default graph
-void addRandomEdge (WeightedGraph&, int); // LPS: To generate a random edge between random cities of the graph
-void transposeGraph (WeightedGraph&, WeightedGraph&, int); // LPS: To transpose the graph
-void strongConnectivity(WeightedGraph&, int); // Function 1
-void cycle(WeightedGraph&, int); // Function 2
-void shortestPath(WeightedGraph&, int); // Function 3
-void removeEdge(WeightedGraph& , int&); // Function removeEdge
-void printTY();
-void printSP();
+void defaultCity(WeightedGraph&, int);							// LPS: To set the cities of the graph to default
+void defaultEdge(WeightedGraph&); 								// LPS: To set the edges of the graph to default
+void initializeGraph (WeightedGraph&, int); 					// LPS: To initialize the graph into the default graph
+void addRandomEdge (WeightedGraph&, int); 						// LPS: To generate a random edge between random cities of the graph
+void transposeGraph (WeightedGraph&, WeightedGraph&, int); 		// LPS: To transpose the graph
+void strongConnectivity(WeightedGraph&, int); 					// Strong Connectivity
+void cycle(WeightedGraph&, int); 								// Cycle Detection
+void shortestPath(WeightedGraph&, int); 						// Shortest Path
+void removeEdge(WeightedGraph& , int&); 						// Remove edge from the graph
+void printTY(); 												// LSD: To print Thank you banner
+void printSP();													// LSD: To print Shortest Path banner
 
 int main()
 {
@@ -618,18 +617,18 @@ int main()
 	return 0;
 }
 
-
+// To add default cities to the graph
 void defaultCity (WeightedGraph& g, int N)
 {
     city* pCity;
     g.initialization(N);
 
 	// Add cities in memory
-	pCity = new city("Manila, Philippines");		// 0
+	pCity = new city("Manila, Philippines");// 0
 	g.add_city(pCity);
-	pCity = new city("Sydney, Australia");		// 1
+	pCity = new city("Sydney, Australia");	// 1
 	g.add_city(pCity);
-	pCity = new city("Chongqing, China");		// 2
+	pCity = new city("Chongqing, China");	// 2
 	g.add_city(pCity);
 	pCity = new city("Rome, Italy");		// 3
 	g.add_city(pCity);
@@ -638,7 +637,7 @@ void defaultCity (WeightedGraph& g, int N)
 
 }
 
-
+// To add default edges to the graph
 void defaultEdge (WeightedGraph& g)
 {
 	
@@ -650,13 +649,13 @@ void defaultEdge (WeightedGraph& g)
 	g.add_edge(4, 3);
 }
 
-
+// To initialize the graph with default cities and edges
 void initializeGraph(WeightedGraph& g, int N){
 	defaultCity(g, N);
 	defaultEdge(g);
 }
 
-// function to generate a random edge betwenn random cities
+// To generate a random edge betwenn random cities
 void addRandomEdge(WeightedGraph& g, int N)
 {
     int start, end;
@@ -696,7 +695,7 @@ void transposeGraph (WeightedGraph& graph, WeightedGraph& tgraph, int N)
 	} // end of outer for loop
 }
 
-// Function 1 : Strong Connectivity
+// Function 1: Strong Connectivity
 void strongConnectivity(WeightedGraph& g, int N)
 {
 	city* start;
@@ -797,7 +796,7 @@ void strongConnectivity(WeightedGraph& g, int N)
 }
 
 
-//Function 2
+// Function 2: Cycle Detection
 void cycle(WeightedGraph& graph, int numOfCities)
 {
     int sequenceArr[numOfCities];
@@ -835,8 +834,9 @@ void cycle(WeightedGraph& graph, int numOfCities)
     system("Pause");
 }
 
-// Function 3
+// Function 3: Shortest Path
 void shortestPath(WeightedGraph& graph, int verNum) {
+	//Edited by LSD so that Source and Destination cannot be same
 	int source, destination;
 	bool pathAvailable;
 
@@ -884,6 +884,7 @@ void shortestPath(WeightedGraph& graph, int verNum) {
 	system("pause");
 }
 
+// To print Thank You banner
 void printTY(){
 	cout << "'########:'##::::'##::::'###::::'##::: ##:'##:::'##::::'##:::'##::'#######::'##::::'##:" << endl
 		 << "... ##..:: ##:::: ##:::'## ##::: ###:: ##: ##::'##:::::. ##:'##::'##.... ##: ##:::: ##:" << endl
@@ -895,6 +896,7 @@ void printTY(){
 		 << ":::..:::::..:::::..::..:::::..::..::::..::..::::..::::::::..::::::.......::::.......:::" << endl;
 }
 
+// To print Shortest Path banner
 void printSP(){
 	cout << "..######..##.....##..#######..########..########.########..######..########....########.....###....########.##.....##" << endl
 	     << ".##....##.##.....##.##.....##.##.....##....##....##.......##....##....##.......##.....##...##.##......##....##.....##" << endl
@@ -905,6 +907,7 @@ void printSP(){
 	     << "..######..##.....##..#######..##.....##....##....########..######.....##.......##........##.....##....##....##.....##" << endl;
 }
 
+// To remove edge from the graph
 void removeEdge(WeightedGraph& sp, int& verNum)
 {
 	int source, destination;
