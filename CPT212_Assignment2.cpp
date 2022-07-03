@@ -538,7 +538,7 @@ void addRandomEdge (WeightedGraph&, int); // LPS: To generate a random edge betw
 void transposeGraph (WeightedGraph&, WeightedGraph&, int); // LPS: To transpose the graph
 void strongConnectivity(WeightedGraph&, int); // Function 1
 void cycle(WeightedGraph&, int); // Function 2
-void shortestPath(WeightedGraph&, int&); // Function 3
+void shortestPath(WeightedGraph&, int); // Function 3
 void removeEdge(WeightedGraph& , int&); // Function removeEdge
 
 int main()
@@ -574,29 +574,29 @@ int main()
 
 		system ("cls");
 		switch (opt){
-			case 1: cout << "\n\n ------------ STRONG CONNECTIVITY ----------------\n\n" ;
+			case 1: cout << "------------ STRONG CONNECTIVITY ----------------\n\n" ;
 					strongConnectivity(Graph, vNum);
 					break;
 
-			case 2: cout << "\n\n ---------------- CYCLE DETECTION ----------------\n\n";
+			case 2: cout << "---------------- CYCLE DETECTION ----------------\n\n";
 					cycle(Graph, vNum);
 					break;
 
-			case 3:cout << "\n\n ----------------- SHORTEST PATH -----------------\n\n";
+			case 3:cout << "----------------- SHORTEST PATH -----------------\n\n";
 					shortestPath(Graph, vNum);
 					break;
 
-			case 4: cout << "\n\n ----------------- DEFAULT GRAPH -----------------\n\n";
+			case 4: cout << "----------------- DEFAULT GRAPH -----------------\n\n";
 					initializeGraph (Graph, vNum);
 					Graph.displayGraph();
 					cout << "\n\n ";
 					system ("pause");
 					break;
 			
-			case 5: cout << "\n\n ----------------- MINIMUM SPANNING TREE -----------------\n\n";
+			case 5: cout << "----------------- MINIMUM SPANNING TREE -----------------\n\n";
 					break;
 									
-			case 6: cout << "\n\n ----------------- REMOVE EDGE -----------------\n\n";
+			case 6: cout << "----------------- REMOVE EDGE -----------------\n\n";
 					removeEdge(Graph, vNum);
 					break;
 
@@ -826,48 +826,50 @@ void cycle(WeightedGraph& graph, int numOfCities)
 }
 
 // Function 3
-void shortestPath(WeightedGraph& sp, int& verNum) {
+void shortestPath(WeightedGraph& graph, int verNum) {
 	int source, destination;
 	bool pathAvailable;
-	
+
 	cout << "The graph :\n\n";
-    sp.displayGraph();
+    graph.displayGraph();
 
 	do {
-		cout << "\n\nSelect a starting city and destination city: " << endl
+		
+		cout << "\nSelect a starting city and destination city: " << endl
 			<< "1 - Manila, Philippines\n2 - Sydney, Australia\n3 - Chongqing, China\n4 - Rome, Italy\n5 - Taipei, Taiwan\n"	<< endl
 			<< "Start: ";
 		cin >> source;
-		//cin.ignore();
 		cout << "Destination: ";
 		cin >> destination;
-		//cin.ignore();
 
-		if (source>5 || source<1 || destination>5 || destination<1) {
-			cout << "\nInvalid input. Please try again.\n" << endl;
-			system ("pause");
-			system ("cls");
+		if (source > 5 || source < 1 || destination > 5 || destination < 1){
+			cout << "Error 1: Source or destination does not exist" << endl;
+		}
+		
+		if (source == destination){
+			cout << "Error 2: Souce and destination cannot be same." << endl;
 		}
 
-	} while (source>5 || source<1 || destination>5 || destination<1);
+	} while (source > 5 || source < 1 || destination > 5 || destination < 1 || source == destination);
 
 	pathAvailable = false;
 
-	cout << "\nChecking for available path...";
-	pathAvailable = sp.checkPath(source-1, destination-1);
+	system("cls");
+	cout << "Checking for available path...";
+	pathAvailable = graph.checkPath(source - 1, destination - 1);
 
 	if (pathAvailable == false) {
 		cout << "\n\nNo path reaching destination.\nRandom edges will be added until a path exists...\n" << endl;
 		while (pathAvailable == false) {
-			addRandomEdge(sp, verNum);
-			pathAvailable = sp.checkPath(source-1, destination-1);
+			addRandomEdge(graph, verNum);
+			pathAvailable = graph.checkPath(source - 1, destination - 1);
 		}
 	}
 
 	cout << "\n\nPath to destination found. Latest graph: \n";
-	sp.displayGraph();
+	graph.displayGraph();
 
-	sp.findPath(source-1, destination-1);
+	graph.findPath(source - 1, destination - 1);
 
 	system("pause");
 }
