@@ -541,7 +541,7 @@ void transposeGraph (WeightedGraph&, WeightedGraph&, int); 		// LPS: To transpos
 void strongConnectivity(WeightedGraph&, int); 					// Strong Connectivity
 void cycle(WeightedGraph&, int); 								// Cycle Detection
 void shortestPath(WeightedGraph&, int); 						// Shortest Path
-void removeEdge(WeightedGraph& , int); 						// Remove edge from the graph
+void removeEdge(WeightedGraph& , int); 							// Remove edge from the graph
 void printTY(); 												// LSD: To print Thank you banner
 void printSP();													// LSD: To print Shortest Path banner
 
@@ -613,7 +613,8 @@ int main()
 					removeEdge(Graph, vNum);
 					break;
 
-			case 7: printTY();
+			case 7: system ("Color 0D");
+					printTY();
 					return 0;
 		}
 
