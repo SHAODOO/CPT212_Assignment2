@@ -525,7 +525,6 @@ class WeightedGraph
 		}
 };
 
-
 void defaultCity(WeightedGraph&, int);							// To set the cities of the graph to default
 void defaultEdge(WeightedGraph&); 								// To set the edges of the graph to default
 void initializeGraph (WeightedGraph&, int); 					// To initialize the graph into the default graph
@@ -602,7 +601,7 @@ int main()
 					initializeGraph (Graph, vNum);
 					Graph.displayGraph();
 					Sleep(300);
-					cout << "\nThe graph has been successfully reset.\n" << endl;
+					cout << "\n\aThe graph has been successfully reset.\n" << endl;
 					system ("pause");
 					break;
 			
@@ -846,7 +845,7 @@ void cycle(WeightedGraph& graph, int numOfCities)
         graph.printCycles(counting, sequenceArr);
 
         Sleep(300);
-		cout << "\tThe New Graph (The graph has cycle):" << endl << endl;
+		cout << "\t\aThe New Graph (The graph has cycle):" << endl << endl;
         Sleep(300);
 		graph.displayGraph();
         cout << endl;
@@ -901,7 +900,7 @@ void shortestPath(WeightedGraph& graph, int verNum) {
 	}
 
 	Sleep(300);
-	cout << "\n\nPath to destination found. Latest graph: \n";
+	cout << "\n\n\aPath to destination found. Latest graph: \n";
 	Sleep(300);
 	graph.displayGraph();
 
@@ -1064,14 +1063,15 @@ void removeEdge(WeightedGraph& sp, int verNum)
 
 	else {
 		cout << "\n\nEdge between " << sp.getCity(source-1)->title << " and " << sp.getCity(destination-1)->title << " found. \n";
-		cout << "Removing...";
+		cout << "Removing..." << endl;
 		sp.remove_edge(source-1, destination-1);
 	}
 
 	Sleep(300);
-	cout << "\n\aLatest graph: \n";
+	cout << "\nLatest graph: \n";
 	Sleep(300);
 	sp.displayGraph();
+	cout << "\a\nThe edge has successfully removed";
 	cout << "\n\n";
 	system("pause");
 }
