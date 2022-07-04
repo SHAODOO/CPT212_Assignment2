@@ -542,6 +542,7 @@ void printDG();													// To print Default Graph banner
 void printMST();												// To print Minimal Spanning Tree
 void printRE();													// To print Remove Edge
 void printSC();													// To print Strong Connectivity
+void printMB();													// To print Menu Banner
 
 int main()
 {
@@ -555,13 +556,7 @@ int main()
 	do{
 	    system ("cls");
 	    system ("Color 0E");
-	    cout << "      ::::::::  :::::::::      :::     :::::::::  :::    :::" << endl
-	    	 << "    :+:    :+: :+:    :+:   :+: :+:   :+:    :+: :+:    :+:" << endl
-	    	 << "   +:+        +:+    +:+  +:+   +:+  +:+    +:+ +:+    +:+" << endl
-	    	 << "  :#:        +#++:++#:  +#++:++#++: +#++:++#+  +#++:++#++" << endl
-	    	 << " +#+   +#+# +#+    +#+ +#+     +#+ +#+        +#+    +#+" << endl
-	    	 << "#+#    #+# #+#    #+# #+#     #+# #+#        #+#    #+#" << endl
-	    	 << "########  ###    ### ###     ### ###        ###    ###" << endl << endl;
+	    printMB();
 	    
 		cout << "Please select the function : " << endl
 	    	 << " 	1. Strong Connectivity" << endl
@@ -606,7 +601,8 @@ int main()
 					Sleep(300);
 					initializeGraph (Graph, vNum);
 					Graph.displayGraph();
-					cout << "\n\n ";
+					Sleep(300);
+					cout << "\nThe graph has been successfully reset.\n" << endl;
 					system ("pause");
 					break;
 			
@@ -709,7 +705,7 @@ void transposeGraph (WeightedGraph& graph, WeightedGraph& tgraph, int N)
 	} // end of outer for loop
 }
 
-// Function 1: Strong Connectivity
+// Strong Connectivity
 void strongConnectivity(WeightedGraph& g, int N)
 {
 	city* start;
@@ -817,7 +813,7 @@ void strongConnectivity(WeightedGraph& g, int N)
 	system ("pause");
 }
 
-// Function 2: Cycle Detection
+// Cycle Detection
 void cycle(WeightedGraph& graph, int numOfCities)
 {
     int sequenceArr[numOfCities];
@@ -859,7 +855,7 @@ void cycle(WeightedGraph& graph, int numOfCities)
     system("Pause");
 }
 
-// Function 3: Shortest Path
+// Shortest Path
 void shortestPath(WeightedGraph& graph, int verNum) {
 	int source, destination;
 	bool pathAvailable;
@@ -995,6 +991,38 @@ void printRE(){
 		 << " ##::. ##:: ##::::::: ##:.:: ##: ##:::: ##::. ## ##::: ##:::::::::: ##::::::: ##:::: ##: ##::: ##:: ##:::::::" << endl
 		 << " ##:::. ##: ########: ##:::: ##:. #######::::. ###:::: ########:::: ########: ########::. ######::: ########:" << endl
 		 << "..:::::..::........::..:::::..:::.......::::::...:::::........:::::........::........::::......::::........::" << endl; 
+}
+
+// To print Menu Banner
+void printMB(){
+	cout << "      ::::::::  :::::::::      :::     :::::::::  :::    :::              :::     :::        ::::::::   ::::::::  :::::::::  ::::::::::: ::::::::::: :::    :::   :::   :::    ::::::::" << endl
+	    	 << "    :+:    :+: :+:    :+:   :+: :+:   :+:    :+: :+:    :+:            :+: :+:   :+:       :+:    :+: :+:    :+: :+:    :+:     :+:         :+:     :+:    :+:  :+:+: :+:+:  :+:    :+:" << endl
+	    	 << "   +:+        +:+    +:+  +:+   +:+  +:+    +:+ +:+    +:+           +:+   +:+  +:+       +:+        +:+    +:+ +:+    +:+     +:+         +:+     +:+    +:+ +:+ +:+:+ +:+ +:+        " << endl
+	    	 << "  :#:        +#++:++#:  +#++:++#++: +#++:++#+  +#++:++#++          +#++:++#++: +#+       :#:        +#+    +:+ +#++:++#:      +#+         +#+     +#++:++#++ +#+  +:+  +#+ +#++:++#++  " << endl
+	    	 << " +#+   +#+# +#+    +#+ +#+     +#+ +#+        +#+    +#+          +#+     +#+ +#+       +#+   +#+# +#+    +#+ +#+    +#+     +#+         +#+     +#+    +#+ +#+       +#+        +#+   " << endl
+	    	 << "#+#    #+# #+#    #+# #+#     #+# #+#        #+#    #+#          #+#     #+# #+#       #+#    #+# #+#    #+# #+#    #+#     #+#         #+#     #+#    #+# #+#       #+# #+#    #+#    " << endl
+	    	 << "########  ###    ### ###     ### ###        ###    ###          ###     ### ########## ########   ########  ###    ### ###########     ###     ###    ### ###       ###  ########      " << endl << endl;
+
+	cout << ":::8888888888888888888888888888888P""""""48888888888888888888888::::88888888" << endl
+		 << "::::8888888888888888888888P   ____.------.____   488888888888888:::888" << endl
+		 << "::::88888888888888888P __.--""      _._          ""--.__ 4888888888:::8888" << endl
+		 << ":::::888888888888P _.-         .-~ | ~-.              -._ 488888:::888" << endl
+		 << ":::::888888888P _-             |   |   |                  -_ 488::8888" << endl
+		 << "::::::888888P ,'               |  _:_  |                    .-:~--.._8" << endl
+		 << "8:::::88888 ,'            .  .- ~~ | ~~ -.                .~  |      |" << endl
+		 << "88:::::88P /_.-~:.   .   :   |     |     |       .        |   |      |" << endl
+		 << "888::::8P /|    | `.o    !   |     |     |        :       |   |      |" << endl
+		 << "8P_..--~:-.|    |  |    d    |     |     | .       o      |   |      |" << endl
+		 << "8|      |  ~.   |  |    o    |  __.:.__  | ;       b      |   |      |" << endl
+		 << "8|      |   |   |  |   d8  .- ~~   |   ~~ -.o       8     |   |      |" << endl
+		 << "8|      |   |  _|.--~:-98  |       |       |8b      8.:~-.|   |      |" << endl
+		 << "8|      A   | |      |  ~. |       |   _.-:~--._   .' |   |   |      |" << endl
+		 << "8|      M   | |      |   | |       |  |   |     |  |  |   |   |      |" << endl
+		 << "8|      C   | |      |   | |       |  |   |     |  |  |   |   O      |" << endl
+		 << "8|      |   | |      |   | |       |  |   |     |  |  |   |   j      |" << endl
+		 << "8|      9   | |      |   | |       |  |   |     |  |  |   |   o      |" << endl
+		 << "8|      9   | |      |   | |       |  |   |     |  |  |   |   |      |" << endl
+		 << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl << endl; 
 }
 
 // To remove edge from the graph
