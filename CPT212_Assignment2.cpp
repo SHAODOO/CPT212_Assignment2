@@ -589,35 +589,40 @@ int main()
 					strongConnectivity(Graph, vNum);
 					break;
 
-			case 2: system("Color 02");
+			case 2: system("Color 0A");
 					printCD();
+					Sleep(300);
 					cycle(Graph, vNum);
 					break;
 
 			case 3: system("Color 0B"); 
 					printSP();
+					Sleep(300);
 					shortestPath(Graph, vNum);
 					break;
 
 			case 4: system("Color 0C");
 					printDG();
+					Sleep(300);
 					initializeGraph (Graph, vNum);
 					Graph.displayGraph();
 					cout << "\n\n ";
 					system ("pause");
 					break;
 			
-			case 5: system("Color 07");
+			case 5: system("Color 06");
 					printMST();
+					Sleep(300);
 					system ("pause");
 					break;
 									
 			case 6: system("Color 03");
 					printRE();
+					Sleep(300);
 					removeEdge(Graph, vNum);
 					break;
 
-			case 7: system ("Color 01");
+			case 7: system ("Color 09");
 					printTY();
 					return 0;
 		}
@@ -715,8 +720,11 @@ void strongConnectivity(WeightedGraph& g, int N)
 	WeightedGraph TGraph(N); // The transpose of the graph
 	defaultCity(TGraph, N); // The transpose of the graph contains the same cities as the graph
 
+	Sleep(300);
 	cout << "\n The graph : " << endl;
+	Sleep(300);
 	g.displayGraph();
+	Sleep(300);
 	cout << "\n\n First DFS Traversal on the Graph...";
 
 	// Run first DFS traversal on the graph from a chosen city, start (the first city, AU).
@@ -755,8 +763,9 @@ void strongConnectivity(WeightedGraph& g, int N)
 
 	else
 		cout << "\n\n\n **No new edge is added to the graph during the second traversal." << endl;
-
+	
 	transposeGraph(g, TGraph, N); // To transpose the graph by reversing the direction of all the edges in the graph
+	Sleep(300);
 	cout << "\n\n The Transposed New Graph : " << endl;
 	TGraph.displayGraph();
 
@@ -790,7 +799,9 @@ void strongConnectivity(WeightedGraph& g, int N)
 
 	if (edgeAdded == true)
 	{
+		Sleep(300);
 		cout << "\n\n The Transposed Graph (with new edges added during the second traversal) : " << endl;
+		Sleep(300);
 		TGraph.displayGraph();
 	}
 
@@ -798,7 +809,9 @@ void strongConnectivity(WeightedGraph& g, int N)
 		cout << "\n\n **No new edge is added to the graph during the second traversal." << endl;
 
 	transposeGraph(TGraph, g, N);
+	Sleep(300);
 	cout << "\n\n\n\a The final Strongly Connected Graph : " << endl;
+	Sleep(300);
 	g.displayGraph();
 	cout << "\n\n ";
 	system ("pause");
@@ -810,7 +823,9 @@ void cycle(WeightedGraph& graph, int numOfCities)
     int sequenceArr[numOfCities];
     int counting = -1;
 
-    cout << "The graph :\n\n";
+	Sleep(300);
+    cout << "\nThe graph :\n\n";
+    Sleep(300);
     graph.displayGraph();
     cout << "\n\n ";
 
@@ -834,8 +849,10 @@ void cycle(WeightedGraph& graph, int numOfCities)
         }
         graph.printCycles(counting, sequenceArr);
 
-        cout << "\tThe New Graph (The graph has cycle):" << endl << endl;
-        graph.displayGraph();
+        Sleep(300);
+		cout << "\tThe New Graph (The graph has cycle):" << endl << endl;
+        Sleep(300);
+		graph.displayGraph();
         cout << endl;
     }
 
@@ -844,7 +861,6 @@ void cycle(WeightedGraph& graph, int numOfCities)
 
 // Function 3: Shortest Path
 void shortestPath(WeightedGraph& graph, int verNum) {
-	//Edited by LSD so that Source and Destination cannot be same
 	int source, destination;
 	bool pathAvailable;
 
@@ -852,7 +868,7 @@ void shortestPath(WeightedGraph& graph, int verNum) {
     graph.displayGraph();
 
 	do {
-		
+		Sleep(300);
 		cout << "\nSelect a starting city and destination city: " << endl
 			<< "1 - Manila, Philippines\n2 - Sydney, Australia\n3 - Chongqing, China\n4 - Rome, Italy\n5 - Taipei, Taiwan\n"	<< endl
 			<< "Start: ";
@@ -901,14 +917,13 @@ void shortestPath(WeightedGraph& graph, int verNum) {
 
 // To print Thank You banner
 void printTY(){
-	cout << "'########:'##::::'##::::'###::::'##::: ##:'##:::'##::::'##:::'##::'#######::'##::::'##:" << endl
-		 << "... ##..:: ##:::: ##:::'## ##::: ###:: ##: ##::'##:::::. ##:'##::'##.... ##: ##:::: ##:" << endl
-		 << "::: ##:::: ##:::: ##::'##:. ##:: ####: ##: ##:'##:::::::. ####::: ##:::: ##: ##:::: ##:" << endl
-		 << "::: ##:::: #########:'##:::. ##: ## ## ##: #####:::::::::. ##:::: ##:::: ##: ##:::: ##:" << endl
-		 << "::: ##:::: ##.... ##: #########: ##. ####: ##. ##::::::::: ##:::: ##:::: ##: ##:::: ##:" << endl
-		 << "::: ##:::: ##:::: ##: ##.... ##: ##:. ###: ##:. ##:::::::: ##:::: ##:::: ##: ##:::: ##:" << endl
-		 << "::: ##:::: ##:::: ##: ##:::: ##: ##::. ##: ##::. ##::::::: ##::::. #######::. #######::" << endl
-		 << ":::..:::::..:::::..::..:::::..::..::::..::..::::..::::::::..::::::.......::::.......:::" << endl;
+	cout << "  ::::::::::: :::    :::     :::     ::::    ::: :::    :::       :::   :::  ::::::::  :::    :::" << endl
+		 << "     :+:     :+:    :+:   :+: :+:   :+:+:   :+: :+:   :+:        :+:   :+: :+:    :+: :+:    :+: " << endl
+		 << "    +:+     +:+    +:+  +:+   +:+  :+:+:+  +:+ +:+  +:+          +:+ +:+  +:+    +:+ +:+    +:+  " << endl
+		 << "   +#+     +#++:++#++ +#++:++#++: +#+ +:+ +#+ +#++:++            +#++:   +#+    +:+ +#+    +:+   " << endl
+		 << "  +#+     +#+    +#+ +#+     +#+ +#+  +#+#+# +#+  +#+            +#+    +#+    +#+ +#+    +#+    " << endl
+		 << " #+#     #+#    #+# #+#     #+# #+#   #+#+# #+#   #+#           #+#    #+#    #+# #+#    #+#     " << endl
+		 << "###     ###    ### ###     ### ###    #### ###    ###          ###     ########   ########       " << endl;
 }
 
 // To print Shortest Path banner
@@ -988,9 +1003,11 @@ void removeEdge(WeightedGraph& sp, int verNum)
 	int source, destination;
 	bool edgeAvailable;
 
+	Sleep(300);
     sp.displayGraph();
 
 	do {
+		Sleep(300);
 		cout << "\n\nSelect a starting city and destination city: " << endl
 			<< "1 - Manila, Philippines\n2 - Sydney, Australia\n3 - Chongqing, China\n4 - Rome, Italy\n5 - Taipei, Taiwan\n"	<< endl
 			<< "Start: ";
@@ -1023,7 +1040,9 @@ void removeEdge(WeightedGraph& sp, int verNum)
 		sp.remove_edge(source-1, destination-1);
 	}
 
+	Sleep(300);
 	cout << "\n\aLatest graph: \n";
+	Sleep(300);
 	sp.displayGraph();
 	cout << "\n\n";
 	system("pause");
