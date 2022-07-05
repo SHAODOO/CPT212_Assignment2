@@ -891,13 +891,15 @@ void shortestPath(WeightedGraph& graph, int verNum) {
 		Sleep(100);
 	}
 	pathAvailable = graph.checkPath(source - 1, destination - 1);
-
-	if (pathAvailable == false) {
+	
+	if ((pathAvailable == false))
 		cout << "\n\nNo path reaching destination.\nRandom edges will be added until a path exists...\n" << endl;
-		while (pathAvailable == false) {
+
+	while (pathAvailable == false) {		
+		//while (pathAvailable == false) {
 			addRandomEdge(graph, verNum);
 			pathAvailable = graph.checkPath(source - 1, destination - 1);
-		}
+		//}
 	}
 
 	Sleep(300);
