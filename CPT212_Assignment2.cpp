@@ -23,6 +23,7 @@
 #include <windows.h> 
 #include <ctime>
 #include <set>
+#include <conio.h>
 
 using namespace std;
 
@@ -620,7 +621,7 @@ int main()
 
 			case 7: system ("Color 09");
 					printTY();
-					return 0;
+					getch();
 		}
 
 	} while(opt!=7 || cin.fail());
@@ -890,16 +891,15 @@ void shortestPath(WeightedGraph& graph, int verNum) {
 		cout << loading[i];
 		Sleep(100);
 	}
+	
 	pathAvailable = graph.checkPath(source - 1, destination - 1);
 	
 	if ((pathAvailable == false))
 		cout << "\n\nNo path reaching destination.\nRandom edges will be added until a path exists...\n" << endl;
 
 	while (pathAvailable == false) {		
-		//while (pathAvailable == false) {
 			addRandomEdge(graph, verNum);
 			pathAvailable = graph.checkPath(source - 1, destination - 1);
-		//}
 	}
 
 	Sleep(300);
