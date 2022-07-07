@@ -883,13 +883,11 @@ void shortestPath(WeightedGraph& graph, int verNum) {
 
 	} while (source > 5 || source < 1 || destination > 5 || destination < 1 || source == destination);
 
-	pathAvailable = false;
-
 	system("cls");
 	string loading = "Checking for available path.........";
 	for (int i = 0; i < loading.size(); i++){
 		cout << loading[i];
-		Sleep(100);
+		Sleep(20);
 	}
 	
 	pathAvailable = graph.checkPath(source - 1, destination - 1);
