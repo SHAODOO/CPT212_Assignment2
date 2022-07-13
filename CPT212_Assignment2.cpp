@@ -552,7 +552,9 @@ class WeightedGraph
 			// Include minimum weight edges one by one
 			int edge_count = 0;
 			Sleep(500);
-			cout << "\n True edges to generate MST of the graph: \n\n";
+			cout << "\n --- The Minimum Spanning Tree (MST) --- ";
+			cout << "\n (based on CURRENT graph) \n\n";
+			
 			while (edge_count < 5 - 1) 
 			{
 				int min = INT_MAX, a = -1, b = -1;
@@ -572,7 +574,7 @@ class WeightedGraph
 				union1(a, b);
 				Sleep(100);
 				printf("  Edge %d:(%d, %d) cost:%d \n",
-					edge_count++, a, b, min);
+					(edge_count++)+1, a, b, min);
 				mincost1 += min;
 			}
 			Sleep(100);
@@ -594,7 +596,8 @@ class WeightedGraph
 			// Include minimum weight edges one by one
 			int edge_count = 0;
 			Sleep(500);
-			cout << "\n Selected edges to generate MST of the graph: \n\n";
+			cout << "\n --- Selected Edges --- \n\n";
+			
 			while (edge_count < numEdges) 
 			{
 				int min = INT_MAX, a = -1, b = -1;
@@ -614,7 +617,7 @@ class WeightedGraph
 				union1(a, b);
 				Sleep(100);
 				printf("  Edge %d:(%d, %d) cost:%d \n",
-					edge_count++, a, b, min);
+					(edge_count++)+1, a, b, min);
 				mincost2 += min;
 			}
 			Sleep(100);
@@ -628,9 +631,9 @@ class WeightedGraph
 		// the same with the MST generated from current edges pg the graph
 		bool checkMincost (int mincost1, int mincost2)
 		{
-			if (mincost2 == mincost1)
+			if (mincost2 == mincost1 && mincost1 > 1 && mincost2 > 1)
 				return true;
-			else 
+			else // if(mincost2 != mincost1 || mincost1<1 || mincost2<1)
 				return false;
 		}
 		
@@ -1087,7 +1090,7 @@ void kruskalMST(WeightedGraph& graph, int verNum)
 					
 	} while (numEdges<1 || numEdges>4);
 	
-	cout << " Enter index number of cities that are connected by the edge selected accordingly." 
+	cout << " Enter index number of cities that are connected by the edge selected accordingly. " 
 			 	"(source <space> destination)\n\n";	   
 				 	   
 	for (int i=1; i<numEdges+1; i++)
@@ -1132,20 +1135,12 @@ void kruskalMST(WeightedGraph& graph, int verNum)
 	
 	// To compute MST of the current graph
 	mincost1 = graph.kruskalMST_current(cost1);
-	
-	Sleep(400);
-	string loading = "\n Generating minimum spanning tree (MST).........\n\n";
-	for (int i = 0; i < loading.size(); i++){
-		cout << loading[i];
-		Sleep(50);
-	}
-	Sleep(300);
-	
+
 	mincost = graph.checkMincost(mincost1,mincost2);
 			 
 	if (mincost == false)
 	{
-		cout << "\n  No minimum spanning tree (MST) can be generated."
+		cout << "\n  Selecetd edges is not qualified to generate a minimum spanning tree (MST)."
 				"\n  Random edges will be added until a minimum spanning tree can be generated...\n\n" << endl;
 		
 		while (mincost == false)
@@ -1163,27 +1158,18 @@ void kruskalMST(WeightedGraph& graph, int verNum)
 					}
 				}
 			}
-			
+			cout << "\n\n";
 			// To compute MST after random edge is added
-			mincost1 = graph.kruskalMST_current(cost1);		
 			mincost2 = graph.kruskalMST_selected(cost2, 4);
+			mincost1 = graph.kruskalMST_current(cost1);	
 			// To check the MST generated is correct or not
 			mincost = graph.checkMincost(mincost1,mincost2);
 		}
 	}
 	
 	// MST generated is correct
-	if (mincost == true)
-	{
-		system ("pause");
-		system ("cls");
-		cout << "\n\n Minimum Spanning Tree (MST) is generated successfully! \n\n";
-		Sleep(200);
-		cout << " --- The Minimum Spanning Tree (MST) --- \n";
-		mincost1 = graph.kruskalMST_current(cost1);	
-		cout <<	"\n\n\n";
-	}
-	
+	cout << "\n  Minimum Spanning Tree (MST) is generated successfully! \n\n";
+
 	Sleep(500);
 	system("pause");
 }	
