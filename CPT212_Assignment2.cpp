@@ -24,8 +24,12 @@
 #include <ctime>
 #include <set>
 #include <conio.h>
+#include <bits/stdc++.h>
 
 using namespace std;
+
+#define V 5
+int parent[5];
 
 class Color{ 
   public: 
@@ -516,6 +520,120 @@ class WeightedGraph
 				return false;
 		}
 		
+		// Function 4: Minimum Spanning Tree (MST)
+		
+		// Find set of vertex i
+		int findVertex(int i)
+		{
+			while (parent[i] != i)
+				i = parent[i];
+			return i;
+		}
+		
+		// Does union of i and j. It returns
+		// false if i and j are already in same
+		// set.
+		void union1(int i, int j)
+		{
+			int a = findVertex(i);
+			int b = findVertex(j);
+			parent[a] = b;
+		}
+		
+		// To compute MST from current edges of the graph
+		int kruskalMST_current(int cost1[5][5])
+		{
+			int mincost1 = 0; // Cost of min MST.
+		
+			// Initialize sets of disjoint sets.
+			for (int i = 0; i < 5; i++)
+				parent[i] = i;
+		
+			// Include minimum weight edges one by one
+			int edge_count = 0;
+			Sleep(500);
+			cout << "\n True edges to generate MST of the graph: \n\n";
+			while (edge_count < 5 - 1) 
+			{
+				int min = INT_MAX, a = -1, b = -1;
+				for (int i = 0; i < 5; i++) 
+				{
+					for (int j = 0; j < 5; j++) 
+					{
+						if (findVertex(i) != findVertex(j) && cost1[i][j] < min) 
+						{
+							min = cost1[i][j];
+							a = i;
+							b = j;
+						}
+					}
+				}
+		
+				union1(a, b);
+				Sleep(100);
+				printf("  Edge %d:(%d, %d) cost:%d \n",
+					edge_count++, a, b, min);
+				mincost1 += min;
+			}
+			Sleep(100);
+			cout << "  ------------------------- ";
+			Sleep(150);
+			printf("\n  Minimum cost= %d \n\n", mincost1);
+			return mincost1;
+		}
+		
+		// To compute MST from selected edges by user
+		int kruskalMST_selected (int cost2[5][5], int numEdges)
+		{
+			int mincost2 = 0; // Cost of min MST.
+
+			// Initialize sets of disjoint sets.
+			for (int i = 0; i < 5; i++)
+				parent[i] = i;
+		
+			// Include minimum weight edges one by one
+			int edge_count = 0;
+			Sleep(500);
+			cout << "\n Selected edges to generate MST of the graph: \n\n";
+			while (edge_count < numEdges) 
+			{
+				int min = INT_MAX, a = -1, b = -1;
+				for (int i = 0; i < 5; i++) 
+				{
+					for (int j = 0; j < 5; j++) 
+					{
+						if (findVertex(i) != findVertex(j) && cost2[i][j] < min) 
+						{
+							min = cost2[i][j];
+							a = i;
+							b = j;
+						}
+					}
+				}
+		
+				union1(a, b);
+				Sleep(100);
+				printf("  Edge %d:(%d, %d) cost:%d \n",
+					edge_count++, a, b, min);
+				mincost2 += min;
+			}
+			Sleep(100);
+			cout << "  ------------------------- ";
+			Sleep(150);
+			printf("\n  Total cost= %d \n\n", mincost2);
+			return mincost2;
+		}
+		
+		// To check whether MST generated from selected edges is 
+		// the same with the MST generated from current edges pg the graph
+		bool checkMincost (int mincost1, int mincost2)
+		{
+			if (mincost2 == mincost1)
+				return true;
+			else 
+				return false;
+		}
+		
 		//Destructor
 		~WeightedGraph()
 		{
@@ -534,15 +652,16 @@ void transposeGraph (WeightedGraph&, WeightedGraph&, int); 		// To transpose the
 void strongConnectivity(WeightedGraph&, int); 					// Strong Connectivity
 void cycle(WeightedGraph&, int); 								// Cycle Detection
 void shortestPath(WeightedGraph&, int); 						// Shortest Path
+void kruskalMST(WeightedGraph&, int);							// Minimum Spanning Tree
 void removeEdge(WeightedGraph& , int); 							// Remove edge from the graph
 void printTY(); 												// To print Thank you banner
 void printSP();													// To print Shortest Path banner
 void printCD();													// To print Cycle Detection banner
 void printDG();													// To print Default Graph banner
-void printMST();												// To print Minimal Spanning Tree
-void printRE();													// To print Remove Edge
-void printSC();													// To print Strong Connectivity
-void printMB();													// To print Menu Banner
+void printMST();												// To print Minimal Spanning Tree banner
+void printRE();													// To print Remove Edge banner
+void printSC();													// To print Strong Connectivity banner
+void printMB();													// To print Menu banner 
 
 int main()
 {
@@ -610,7 +729,8 @@ int main()
 			case 5: system("Color 06");
 					printMST();
 					Sleep(300);
-					system ("pause");
+					kruskalMST(Graph, vNum);
+					//system ("pause");
 					break;
 									
 			case 6: system("Color 03");
@@ -911,6 +1031,163 @@ void shortestPath(WeightedGraph& graph, int verNum) {
 	system("pause");
 }
 
+// Minimum Spanning Tree
+void kruskalMST(WeightedGraph& graph, int verNum)
+{				
+	int numEdges, source, destination, mincost1, mincost2;
+	bool edgeAvailable;
+			
+	// MST based on the edges of the current graph		
+	int cost1[5][5] = {{INT_MAX, INT_MAX, INT_MAX, INT_MAX, INT_MAX}, 
+						{INT_MAX, INT_MAX, INT_MAX, INT_MAX, INT_MAX}, 
+						{INT_MAX, INT_MAX, INT_MAX, INT_MAX, INT_MAX},
+						{INT_MAX, INT_MAX, INT_MAX, INT_MAX, INT_MAX},
+						{INT_MAX, INT_MAX, INT_MAX, INT_MAX, INT_MAX}};
+				
+	for (int i=0; i<verNum; i++)
+	{
+		for (int j=0; j<verNum; j++)
+		{		
+			if (graph.weight_is(i,j) != 0)
+			{
+				cost1[i][j] = graph.weight_is(i,j);
+			}	
+		}
+	}
+
+	
+	// MST based on the selected edges of graph by user
+	int cost2[5][5] = {{INT_MAX, INT_MAX, INT_MAX, INT_MAX, INT_MAX}, 
+						{INT_MAX, INT_MAX, INT_MAX, INT_MAX, INT_MAX}, 
+						{INT_MAX, INT_MAX, INT_MAX, INT_MAX, INT_MAX},
+						{INT_MAX, INT_MAX, INT_MAX, INT_MAX, INT_MAX},
+						{INT_MAX, INT_MAX, INT_MAX, INT_MAX, INT_MAX}};
+					
+	cout << "\nThe graph :\n\n";
+	graph.displayGraph();
+	cout << "\n\n";
+		    
+	// To display the index of cities
+	cout << " Below are the index number of each city : \n"
+		    " #0: Manila, Philippines\n"
+		    " #1: Sydney, Australia\n"
+		    " #2: Chongqing, China\n"
+		    " #3: Rome, Italy\n"
+		    " #4: Taipei, Taiwan\n" << endl;
+	do
+	{
+		cout << " How many edges do you want to select ? ";
+		cin >> numEdges;
+		cout << endl;
+			    
+		if (numEdges<1 || numEdges>4)
+		{
+			cout << " Invalid input. Please try again.\n" << endl;
+		}
+					
+	} while (numEdges<1 || numEdges>4);
+	
+	cout << " Enter index number of cities that are connected by the edge selected accordingly." 
+			 	"(source <space> destination)\n\n";	   
+				 	   
+	for (int i=1; i<numEdges+1; i++)
+	{
+		do
+		{	    	
+			cout << "  Source " << i << ", Destination " << i << ": ";
+			cin >> source >> destination;
+			
+			// Input validation for source and destination		    
+			if (source<0 || source>4 || destination<0 || destination>4)
+			{	
+				cout << "\n Error : Source or destination does not exist. "
+						"Please try again.\n" << endl;
+			}
+		
+			// To check whether the selected edge exists
+			edgeAvailable = false;
+			edgeAvailable = graph.checkEdge(source, destination);
+			if (edgeAvailable == true)
+			{
+				// Pass the selected edges into another array for computing MST
+				//cost2[source][destination] = edges[source][destination];
+				cost2[source][destination] = graph.weight_is(source, destination);
+			}
+			else
+			{
+				cout << "\n Error : Edge does not exist. "
+						"Please try again.\n" << endl;
+			}
+			
+		} while (source<0 || source>4 || destination<0 || destination>4 || source == destination || edgeAvailable == false);
+	}
+		
+	/***************************************************************************/
+	// Check whether the MST generated from selected edges is correct or not. 
+	/***************************************************************************/
+	bool mincost = false;
+
+	// To compute MST based on the selected edges by user
+	mincost2 = graph.kruskalMST_selected(cost2, numEdges);
+	
+	// To compute MST of the current graph
+	mincost1 = graph.kruskalMST_current(cost1);
+	
+	Sleep(400);
+	string loading = "\n Generating minimum spanning tree (MST).........\n\n";
+	for (int i = 0; i < loading.size(); i++){
+		cout << loading[i];
+		Sleep(50);
+	}
+	Sleep(300);
+	
+	mincost = graph.checkMincost(mincost1,mincost2);
+			 
+	if (mincost == false)
+	{
+		cout << "\n  No minimum spanning tree (MST) can be generated."
+				"\n  Random edges will be added until a minimum spanning tree can be generated...\n\n" << endl;
+		
+		while (mincost == false)
+		{
+			addRandomEdge(graph, verNum);
+			graph.displayGraph();
+			for(int i=0; i<verNum;i++)
+			{
+				for (int j=0; j<verNum; j++)
+				{
+					if (graph.weight_is(i, j) != 0)
+					{
+						cost1[i][j] = graph.weight_is(i, j);
+						cost2[i][j] = graph.weight_is(i, j);
+					}
+				}
+			}
+			
+			// To compute MST after random edge is added
+			mincost1 = graph.kruskalMST_current(cost1);		
+			mincost2 = graph.kruskalMST_selected(cost2, 4);
+			// To check the MST generated is correct or not
+			mincost = graph.checkMincost(mincost1,mincost2);
+		}
+	}
+	
+	// MST generated is correct
+	if (mincost == true)
+	{
+		system ("pause");
+		system ("cls");
+		cout << "\n\n Minimum Spanning Tree (MST) is generated successfully! \n\n";
+		Sleep(200);
+		cout << " --- The Minimum Spanning Tree (MST) --- \n";
+		mincost1 = graph.kruskalMST_current(cost1);	
+		cout <<	"\n\n\n";
+	}
+	
+	Sleep(500);
+	system("pause");
+}	
+
 // To print Thank You banner
 void printTY(){
 	cout << "  ::::::::::: :::    :::     :::     ::::    ::: :::    :::       :::   :::  ::::::::  :::    :::" << endl
@@ -1014,7 +1291,7 @@ void printRE(){
 		 << "..:::::..::........::..:::::..:::.......::::::...:::::........:::::........::........::::......::::........::" << endl; 
 }
 
-// To print Menu Banner
+// To print Menu banner
 void printMB(){
 	cout << "      ::::::::  :::::::::      :::     :::::::::  :::    :::              :::     :::        ::::::::   ::::::::  :::::::::  ::::::::::: ::::::::::: :::    :::   :::   :::    ::::::::" << endl
 	    	 << "    :+:    :+: :+:    :+:   :+: :+:   :+:    :+: :+:    :+:            :+: :+:   :+:       :+:    :+: :+:    :+: :+:    :+:     :+:         :+:     :+:    :+:  :+:+: :+:+:  :+:    :+:" << endl
