@@ -1025,16 +1025,24 @@ void shortestPath(WeightedGraph& graph, int verNum) {
 		cin >> source;
 		cout << "Destination: ";
 		cin >> destination;
+		
+		if (cin.fail())
+		{
+			cout << "\nError 3: Please input correct source and destination." << endl;
+			cin.clear();
+			cin.ignore();
+			continue;
+		}
 
 		if (source > 5 || source < 1 || destination > 5 || destination < 1){
-			cout << "Error 1: Source or destination does not exist" << endl;
+			cout << "\nError 1: Source or destination does not exist" << endl;
 		}
 		
 		if (source == destination){
 			cout << "Error 2: Souce and destination cannot be same." << endl;
-		}
+		}		
 
-	} while (source > 5 || source < 1 || destination > 5 || destination < 1 || source == destination);
+	} while (source > 5 || source < 1 || destination > 5 || destination < 1 || source == destination || cin.fail());
 
 	system("cls");
 	string loading = "Checking for available path.........";
@@ -1147,8 +1155,16 @@ void kruskalMST(WeightedGraph& graph, int verNum)
 		{
 			cout << " Error : Input exceeds the number of edges needed to generate a MST. Please try again.\n" << endl;
 		}
+		if (cin.fail())
+		{
+			cout << " Error : Invalid input. Please try again. \n" << endl;
+			cin.clear();
+			cin.ignore();
+			continue;
+		}
 					
-	} while (numEdges<1 || numEdges>4);
+	} while (numEdges<1 || numEdges>4 || cin.fail());
+	
 	
 	cout << " Enter index number of cities that are connected by the edge selected accordingly. " 
 			 	"(source <space> destination)\n\n";	   
@@ -1157,8 +1173,21 @@ void kruskalMST(WeightedGraph& graph, int verNum)
 	{
 		do
 		{	    	
-			cout << "  Source " << i << ", Destination " << i << ": ";
-			cin >> source >> destination;
+			cout << "Source " << i  << ": ";
+			cin >> source;
+			
+			cout << "Destination " << i << ": ";
+			cin >> destination;
+			cout << endl;
+			
+			if (cin.fail())
+			{
+				cout << "\n Error : Source or destination does not exist. "
+						"Please try again.\n" << endl;
+				cin.clear();
+				cin.ignore();
+				continue;
+			}
 			
 			// Input validation for source and destination		    
 			if (source<1 || source>5 || destination<1 || destination>5)
@@ -1186,7 +1215,7 @@ void kruskalMST(WeightedGraph& graph, int verNum)
 						"Please try again.\n" << endl;
 			}
 			
-		} while (source<1 || source>5 || destination<1 || destination>5 || edgeAvailable == false);
+		} while (source<1 || source>5 || destination<1 || destination>5 || edgeAvailable == false || cin.fail());
 	}
 		
 	/***************************************************************************/
