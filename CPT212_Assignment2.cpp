@@ -1173,10 +1173,10 @@ void kruskalMST(WeightedGraph& graph, int verNum)
 	{
 		do
 		{	    	
-			cout << "Source " << i  << ": ";
+			cout << "  Source " << i  << ": ";
 			cin >> source;
 			
-			cout << "Destination " << i << ": ";
+			cout << "  Destination " << i << ": ";
 			cin >> destination;
 			cout << endl;
 			
