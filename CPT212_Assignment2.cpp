@@ -1167,7 +1167,7 @@ void kruskalMST(WeightedGraph& graph, int verNum)
 	
 	
 	cout << " Enter index number of cities that are connected by the edge selected accordingly. " 
-			 	"(source <space> destination)\n\n";	   
+			 	"(source <enter> destination)\n\n";	   
 				 	   
 	for (int i=1; i<numEdges+1; i++)
 	{
