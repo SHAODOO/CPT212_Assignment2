@@ -1322,20 +1322,20 @@ void removeEdge(WeightedGraph& sp, int verNum)
 	edgeAvailable = sp.checkEdge(source-1, destination-1);
 
 	if (edgeAvailable == false) {
-		cout<< "\nNo edge between "<< sp.getCity(source-1)->title<< " and "<< sp.getCity(destination-1)->title<<".";
+		cout<< "\nNo edge between "<< sp.getCity(source-1)->title<< " and "<< sp.getCity(destination-1)->title<<".\n";
 	}
 
 	else {
 		cout << "\n\nEdge between " << sp.getCity(source-1)->title << " and " << sp.getCity(destination-1)->title << " found. \n";
 		cout << "Removing..." << endl;
 		sp.remove_edge(source-1, destination-1);
+		cout << "\a\nThe edge has successfully removed\n";
 	}
 
 	Sleep(300);
 	cout << "\nLatest graph: \n";
 	Sleep(300);
-	sp.displayGraph();
-	cout << "\a\nThe edge has successfully removed";
+	sp.displayGraph(); 
 	cout << "\n\n";
 	system("pause");
 }
