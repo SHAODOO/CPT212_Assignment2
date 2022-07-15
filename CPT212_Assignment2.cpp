@@ -10,7 +10,11 @@
 //				: SM: 6255		SC: 8470	SR: 16321	ST: 7262
 //				: CM: 2237		CS: 8470	CR: 8178	CT: 1553
 //				: RM: 10403 	RS: 16321	RC: 8178	RT: 9606
-//				: TM: 1171		TS: 7262	TC: 1553	TR: 9606 
+//				: TM: 1171		TS: 7262	TC: 1553	TR: 9606
+// Instruction	: 1. You do not need to open any IDE to run the code
+//				  2. You only need to run the CPT212_Assignment2.exe
+//				  3. You have to open the window in full size for the best viewing experience
+//				  4. Enjoy :) 
 //=======================================================================================================
 
 #include <iostream>
@@ -1167,7 +1171,7 @@ void kruskalMST(WeightedGraph& graph, int verNum)
 			dest = destination-1;
 			
 			// To check whether the selected edge exists
-			edgeAvailable == false;
+			edgeAvailable = false;
 			edgeAvailable = graph.checkEdge(src, dest);
 			if (edgeAvailable == true)
 			{
