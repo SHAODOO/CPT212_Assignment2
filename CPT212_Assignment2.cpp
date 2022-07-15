@@ -63,7 +63,7 @@ class WeightedGraph
 	private:
 		static const int NULL_EDGE = 0;
 		vector<city*> cities;
-		vector<bool> marks;			// marks[i] is mark for cities[i]
+		vector<bool> marks;								// marks[i] is mark for cities[i]
 		int nmbCities;
 		int maxCities;
 		vector< vector<int> > edges;
@@ -521,7 +521,33 @@ class WeightedGraph
 		}
 		
 		// Function 4: Minimum Spanning Tree (MST)
-		
+	
+		// To check whether all the vertices are connected
+		bool checkConnected()
+		{	
+			if ( edges[0][0] == 0 && edges[0][1] == 0 && edges[0][2] == 0 && edges[0][3] == 0 && edges[0][4] == 0 && 
+					edges[1][0] == 0 && edges[2][0] == 0 && edges[3][0] == 0 && edges[4][0] == 0)  
+					return false;
+					
+			else if ( edges[1][0] == 0 && edges[1][1] == 0 && edges[1][2] == 0 && edges[1][3] == 0 && edges[1][4] == 0 && 
+						 edges[0][1] == 0 && edges[1][1] == 0 && edges[2][1] == 0 && edges[3][1] == 0 && edges[4][1] == 0)  
+					return false;
+					
+			else if ( edges[2][0] == 0 && edges[2][1] == 0 && edges[2][2] == 0 && edges[2][3] == 0 && edges[2][4] == 0 && 
+						 edges[0][2] == 0 && edges[1][2] == 0 && edges[2][2] == 0 && edges[3][2] == 0 && edges[4][2] == 0)  
+					return false;
+			
+			else if ( edges[3][0] == 0 && edges[3][1] == 0 && edges[3][2] == 0 && edges[3][3] == 0 && edges[3][4] == 0 && 
+						edges[0][3] == 0 && edges[1][3] == 0 && edges[2][3] == 0 && edges[3][3] == 0 && edges[4][3] == 0)  
+					return false;
+					
+			else if ( edges[4][0] == 0 && edges[4][1] == 0 && edges[4][2] == 0 && edges[4][3] == 0 && edges[4][4] == 0 && 
+						edges[0][4] == 0 && edges[1][4] == 0 && edges[2][4] == 0 && edges[3][4] == 0)  
+					return false;
+			else
+				return true;
+		}
+
 		// Find set of vertex i
 		int findVertex(int i)
 		{
@@ -574,7 +600,7 @@ class WeightedGraph
 				union1(a, b);
 				Sleep(100);
 				printf("  Edge %d:(%d, %d) cost:%d \n",
-					(edge_count++)+1, a, b, min);
+					(edge_count++)+1, a+1, b+1, min);
 				mincost1 += min;
 			}
 			Sleep(100);
@@ -617,7 +643,7 @@ class WeightedGraph
 				union1(a, b);
 				Sleep(100);
 				printf("  Edge %d:(%d, %d) cost:%d \n",
-					(edge_count++)+1, a, b, min);
+					(edge_count++)+1, a+1, b+1, min);
 				mincost2 += min;
 			}
 			Sleep(100);
@@ -631,7 +657,8 @@ class WeightedGraph
 		// the same with the MST generated from current edges pg the graph
 		bool checkMincost (int mincost1, int mincost2)
 		{
-			if (mincost2 == mincost1 && mincost1 > 1 && mincost2 > 1)
+			//if (mincost2 == mincost1 && mincost1 > 1 && mincost2 > 1)
+			if (mincost2 == mincost1)
 				return true;
 			else // if(mincost2 != mincost1 || mincost1<1 || mincost2<1)
 				return false;
@@ -733,7 +760,6 @@ int main()
 					printMST();
 					Sleep(300);
 					kruskalMST(Graph, vNum);
-					//system ("pause");
 					break;
 									
 			case 6: system("Color 03");
@@ -1037,9 +1063,33 @@ void shortestPath(WeightedGraph& graph, int verNum) {
 // Minimum Spanning Tree
 void kruskalMST(WeightedGraph& graph, int verNum)
 {				
-	int numEdges, source, destination, mincost1, mincost2;
-	bool edgeAvailable;
-			
+	int numEdges, source, destination, src, dest, mincost1, mincost2;
+	bool isConnected = false, edgeAvailable = false;
+	
+	string loading = "\n\nChecking if the graph is connected.........";
+	for (int i = 0; i < loading.size(); i++){
+		cout << loading[i];
+		Sleep(20);
+	}
+	Sleep(300);
+
+	// To check if all the vertices are connected
+	isConnected = graph.checkConnected();
+	if (isConnected == false)
+	{
+		cout << "\n\n The graph is not connected. It is unable to generate a MST. "
+				"\n Random edge will be added until the graph is able to generate a MST... \n\n" << endl;
+					
+		while (isConnected == false)
+		{
+			addRandomEdge(graph, verNum);
+			isConnected = graph.checkConnected();
+		}
+	}
+	Sleep(300);
+	cout << "\n\n The graph is connected. It is able to generate a MST. \n" << endl;
+	Sleep(500);
+	
 	// MST based on the edges of the current graph		
 	int cost1[5][5] = {{INT_MAX, INT_MAX, INT_MAX, INT_MAX, INT_MAX}, 
 						{INT_MAX, INT_MAX, INT_MAX, INT_MAX, INT_MAX}, 
@@ -1050,8 +1100,9 @@ void kruskalMST(WeightedGraph& graph, int verNum)
 	for (int i=0; i<verNum; i++)
 	{
 		for (int j=0; j<verNum; j++)
-		{		
-			if (graph.weight_is(i,j) != 0)
+		{	
+			edgeAvailable = graph.checkEdge(i, j);	
+			if (edgeAvailable == true)
 			{
 				cost1[i][j] = graph.weight_is(i,j);
 			}	
@@ -1069,23 +1120,28 @@ void kruskalMST(WeightedGraph& graph, int verNum)
 	cout << "\nThe graph :\n\n";
 	graph.displayGraph();
 	cout << "\n\n";
+	Sleep(100);
 		    
 	// To display the index of cities
 	cout << " Below are the index number of each city : \n"
-		    " #0: Manila, Philippines\n"
-		    " #1: Sydney, Australia\n"
-		    " #2: Chongqing, China\n"
-		    " #3: Rome, Italy\n"
-		    " #4: Taipei, Taiwan\n" << endl;
+		    " #1: Manila, Philippines\n"
+		    " #2: Sydney, Australia\n"
+		    " #3: Chongqing, China\n"
+		    " #4: Rome, Italy\n"
+		    " #5: Taipei, Taiwan\n" << endl;
 	do
 	{
 		cout << " How many edges do you want to select ? ";
 		cin >> numEdges;
 		cout << endl;
 			    
-		if (numEdges<1 || numEdges>4)
+		if (numEdges<1)
 		{
-			cout << " Invalid input. Please try again.\n" << endl;
+			cout << " Error : Please select at least one edge. \n" << endl;
+		}
+		if (numEdges>4)
+		{
+			cout << " Error : Input exceeds the number of edges needed to generate a MST. Please try again.\n" << endl;
 		}
 					
 	} while (numEdges<1 || numEdges>4);
@@ -1101,20 +1157,23 @@ void kruskalMST(WeightedGraph& graph, int verNum)
 			cin >> source >> destination;
 			
 			// Input validation for source and destination		    
-			if (source<0 || source>4 || destination<0 || destination>4)
+			if (source<1 || source>5 || destination<1 || destination>5)
 			{	
 				cout << "\n Error : Source or destination does not exist. "
 						"Please try again.\n" << endl;
 			}
-		
+			
+			src = source-1;
+			dest = destination-1;
+			
 			// To check whether the selected edge exists
-			edgeAvailable = false;
-			edgeAvailable = graph.checkEdge(source, destination);
+			edgeAvailable == false;
+			edgeAvailable = graph.checkEdge(src, dest);
 			if (edgeAvailable == true)
 			{
 				// Pass the selected edges into another array for computing MST
 				//cost2[source][destination] = edges[source][destination];
-				cost2[source][destination] = graph.weight_is(source, destination);
+				cost2[src][dest] = graph.weight_is(src, dest);
 			}
 			else
 			{
@@ -1122,7 +1181,7 @@ void kruskalMST(WeightedGraph& graph, int verNum)
 						"Please try again.\n" << endl;
 			}
 			
-		} while (source<0 || source>4 || destination<0 || destination>4 || source == destination || edgeAvailable == false);
+		} while (source<1 || source>5 || destination<1 || destination>5 || edgeAvailable == false);
 	}
 		
 	/***************************************************************************/
@@ -1168,7 +1227,7 @@ void kruskalMST(WeightedGraph& graph, int verNum)
 	}
 	
 	// MST generated is correct
-	cout << "\n  Minimum Spanning Tree (MST) is generated successfully! \n\n";
+	cout << "\n  Minimum Spanning Tree (MST) is generated successfully! \n\n\n";
 
 	Sleep(500);
 	system("pause");
@@ -1322,20 +1381,20 @@ void removeEdge(WeightedGraph& sp, int verNum)
 	edgeAvailable = sp.checkEdge(source-1, destination-1);
 
 	if (edgeAvailable == false) {
-		cout<< "\nNo edge between "<< sp.getCity(source-1)->title<< " and "<< sp.getCity(destination-1)->title<<".\n";
+		cout<< "\nNo edge between "<< sp.getCity(source-1)->title<< " and "<< sp.getCity(destination-1)->title<<".";
 	}
 
 	else {
 		cout << "\n\nEdge between " << sp.getCity(source-1)->title << " and " << sp.getCity(destination-1)->title << " found. \n";
 		cout << "Removing..." << endl;
 		sp.remove_edge(source-1, destination-1);
-		cout << "\a\nThe edge has successfully removed\n";
 	}
 
 	Sleep(300);
 	cout << "\nLatest graph: \n";
 	Sleep(300);
-	sp.displayGraph(); 
+	sp.displayGraph();
+	cout << "\a\nThe edge has successfully removed";
 	cout << "\n\n";
 	system("pause");
 }
