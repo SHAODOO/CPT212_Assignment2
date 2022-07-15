@@ -1165,6 +1165,7 @@ void kruskalMST(WeightedGraph& graph, int verNum)
 			{	
 				cout << "\n Error : Source or destination does not exist. "
 						"Please try again.\n" << endl;
+				continue;
 			}
 			
 			src = source-1;
