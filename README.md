@@ -27,3 +27,6 @@ Adjancecy Matrix
 2. You only need to run the CPT212_Assignment2.exe
 3. You have to open the window in full size for the best viewing experience
 4. Enjoy :)
+
+## YouTube Video Link
+[![Watch the video](https://i3.ytimg.com/vi/yrotF76bPQs/maxresdefault.jpg)](https://youtu.be/yrotF76bPQs)
